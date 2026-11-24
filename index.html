@@ -55,8 +55,8 @@
 <section class="section" id="pipeline">
   <div class="container teaser-wide-container has-text-centered">
     <h2 class="title is-3">From one image to a guided tour</h2>
-    <p class="section-lead">The guide is a depth reprojection of the canvas, warped along the requested camera path.</p>
-    <p class="section-note">Left to right: the input image, the outpainted canvas whose margins hold what the camera will reveal, the rendered guide whose stretches and holes the prior never sees beyond its low frequencies, and the steered output.</p>
+    <p class="section-lead">Depth-based rendering of the expanded scene along the requested camera path produces approximate target views that serve as spatial guidance.</p>
+    <p class="section-note">Left to right: the input image, the canvas that extends it beyond its original field of view while preserving the input pixels, the rendered guide of approximate target views, and the steered output. Only the guide&#39;s low-frequency structure reaches the model.</p>
     <div class="pipeline-card">
       <div class="pipeline-title"><h3 class="title is-4">Mountain railway</h3><span class="pipeline-pill">zoom out</span></div>
       <div class="pipeline-row">
@@ -87,11 +87,33 @@
   </div>
 </section>
 
+<section class="section section-tinted" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>Video diffusion and world models generate plausible videos but do not reliably match the requested camera direction and travel distance. We present <em>DreamTour</em>, a training-free framework that generates camera tours from a single image with more accurate control over camera motion. DreamTour first uses a frozen image inpainting prior to extend the photograph beyond its original field of view while preserving the input pixels. Depth-based rendering of this extended scene along the requested camera path produces approximate target views that serve as spatial guidance. We introduce <em>Layout Steering</em>, which aligns early video latents with these views through decaying low-frequency corrections, leaving later denoising to refine appearance and dynamics. For longer tours, we autoregressively generate the video segments, repeating guidance construction from each segment's final frame to maintain camera control across the full trajectory. DreamTour improves directional accuracy and travel calibration on VBench while maintaining competitive video quality. On WorldScore, it strengthens camera control and scene consistency across chained movements. Together, these results demonstrate that training-free spatial guidance enables more accurate and consistent camera control in pretrained video diffusion and world models. Code will be released.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="method">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Method</h2>
+    <p class="section-note"><b>Expand the input image once, render the requested path, steer early denoising with decaying low-frequency corrections.</b></p>
+    <figure class="method-figure"><img src="./static/images/method_overview.png" alt="Overview of DreamTour: a frozen inpainting model expands the input image into a canvas, views rendered along the trajectory with Pi3X depth are encoded as the guide latent, and decaying low-frequency corrections steer early denoising of the frozen video model"></figure>
+    <p class="section-note has-text-justified" style="margin-top:1rem">A frozen inpainting prior (FLUX.1 Fill) expands the input image into a canvas in one pass, with the input pixels preserved exactly. A depth estimate, rescaled once to the scene's metric median depth, lifts the canvas into a textured point cloud, and rendering it along the requested trajectory produces a guide video of approximate target views. During the first 40&nbsp;percent of denoising, Layout Steering adds a decaying low-frequency correction that aligns the video latent with the noised guide latent, and the remaining steps run the frozen sampler unchanged, so the prior supplies parallax, disocclusions and fine detail. For longer tours each window starts from the previous window's final frame, with a fresh canvas and guide. All pretrained weights remain frozen, and the same hook steers image-to-video diffusion models and camera-conditioned world models.</p>
+  </div>
+</section>
+
 <section class="hero teaser" aria-label="Layout steering on Wan 2.2">
   <div class="hero-body">
     <div class="container teaser-wide-container">
       <h2 class="title is-3 has-text-centered">Layout steering on a frozen video prior: Wan&nbsp;2.2</h2>
-      <p class="section-note has-text-centered">One input image, one camera request. <b>Left of the divider:</b> the frozen prior (Wan&nbsp;2.2 TI2V-5B) with the camera sentence alone. <b>Right:</b> the same prior with layout steering. No weight is changed: the prior paints, the canvas says where the camera goes. Drag the divider.</p>
+      <p class="section-note has-text-centered">One input image, one camera request. <b>Left of the divider:</b> the frozen prior (Wan&nbsp;2.2 TI2V-5B) with the camera sentence alone. <b>Right:</b> the same prior with layout steering. No weight is changed: the guide constrains camera motion and coarse structure, while the frozen prior supplies realistic appearance and dynamics. Drag the divider.</p>
       <div class="compare-grid two-by-two">
         <div>
           <div class="video-compare-container" data-left-label="Wan 2.2, camera text only" data-right-label="Wan 2.2 + layout steering (ours)">
@@ -129,8 +151,8 @@
 <section class="section section-tinted" id="sanawm">
   <div class="container teaser-wide-container">
     <h2 class="title is-3 has-text-centered">Inside a trained world model: SANA-WM</h2>
-    <p class="section-lead">A trajectory-conditioned world model follows the direction; layout steering calibrates the distance.</p>
-    <p class="section-note has-text-centered">SANA-WM takes the camera trajectory as an input and still travels only part of the way: on these 1.6&nbsp;m moves the trajectory alone covers 8&ndash;24&nbsp;% of the request. The same steering hook, applied through its trajectory input, carries the camera the rest of the way (43&ndash;65&nbsp;%) at unchanged direction, and does the same on trajectories the model was never trained on. <b>Left:</b> trajectory input alone. <b>Right:</b> the same input with layout steering.</p>
+    <p class="section-lead">A camera-conditioned world model follows the direction; Layout Steering calibrates the travel distance.</p>
+    <p class="section-note has-text-centered">SANA-WM takes the camera trajectory as an input and still travels only part of the way: on these 1.6&nbsp;m moves the trajectory alone covers 8&ndash;24&nbsp;% of the request. With its native trajectory input retained, Layout Steering carries the camera the rest of the way (43&ndash;65&nbsp;%) at unchanged direction, and does the same on trajectories the model was never trained on. <b>Left:</b> trajectory input alone. <b>Right:</b> the same input with layout steering.</p>
     <div class="compare-grid two-by-two">
         <div>
           <div class="video-compare-container" data-left-label="SANA-WM, trajectory input" data-right-label="SANA-WM + layout steering (ours)">
@@ -168,7 +190,7 @@
 <section class="section" id="lyra">
   <div class="container teaser-wide-container">
     <h2 class="title is-3 has-text-centered">Inside a trained world model: Lyra&nbsp;2.0</h2>
-    <p class="section-lead">The same hook, unchanged, calibrates a second camera-conditioned world model.</p>
+    <p class="section-lead">The same hook, unchanged, calibrates a second camera-conditioned world model with its trajectory input retained.</p>
     <p class="section-note has-text-centered">Lyra&nbsp;2.0 generates worlds from a single image and a metric camera trajectory, yet the realised travel drifts far past the request, up to fourfold on these scenes. The same steering hook calibrates it, with Lyra's own look untouched. <b>Left:</b> trajectory input alone. <b>Right:</b> the same input with layout steering.</p>
             <div class="compare-grid two-by-two">
         <div>
@@ -203,27 +225,9 @@
   </div>
 </section>
 
-<section class="section section-tinted" id="abstract">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>Video diffusion and world models generate plausible videos but do not reliably match the requested camera direction and travel distance. We present <em>DreamTour</em>, a training-free framework that generates camera tours from a single image with more accurate control over camera motion. DreamTour first uses a frozen image inpainting prior to extend the photograph beyond its original field of view while preserving the input pixels. Depth-based rendering of this extended scene along the requested camera path produces approximate target views that serve as spatial guidance. We introduce <em>Layout Steering</em>, which aligns early video latents with these views through decaying low-frequency corrections, leaving later denoising to refine appearance and dynamics. For longer tours, we autoregressively generate the video segments, repeating guidance construction from each segment's final frame to maintain camera control across the full trajectory. DreamTour improves directional accuracy and travel calibration on VBench while maintaining competitive video quality. On WorldScore, it strengthens camera control and scene consistency across chained movements. Together, these results demonstrate that training-free spatial guidance enables more accurate and consistent camera control in pretrained video diffusion and world models. Code will be released.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="section" id="method">
-  <div class="container is-max-desktop has-text-centered">
-    <h2 class="title is-3">Method</h2>
-    <p class="section-note"><b>Expand the image once, render the requested path, steer only the low frequencies.</b></p>
-    <figure class="method-figure"><img src="./static/images/method_overview.png" alt="Overview of DreamTour: a frozen inpainting model expands the input image into a canvas, views rendered along the trajectory with Pi3X depth are encoded as the guide latent, and decaying low-frequency corrections steer early denoising of the frozen video model"></figure>
-    <p class="section-note has-text-justified" style="margin-top:1rem">A frozen inpainting prior (FLUX.1 Fill) expands the input image into a canvas in one pass, with the input pixels preserved exactly. A depth estimate, rescaled once to the scene's metric median depth, lifts the canvas into a textured point cloud, and rendering it along the requested trajectory produces a guide video of approximate target views. During the first 40&nbsp;percent of denoising, Layout Steering adds a decaying low-frequency correction that aligns the video latent with the noised guide latent, and the remaining steps run the frozen sampler unchanged, so the prior supplies parallax, disocclusions and fine detail. For longer tours each window starts from the previous window's final frame, with a fresh canvas and guide. Nothing is trained, and the same hook steers video diffusion models and camera-conditioned world models.</p>
-  </div>
-</section>
+
+
 
 
 
@@ -261,7 +265,7 @@
 <section class="section" id="onehook">
   <div class="container teaser-wide-container has-text-centered">
     <h2 class="title is-3">One hook, three priors</h2>
-    <p class="section-lead">The same steering hook, the same canvas and guide, on three frozen video priors.</p>
+    <p class="section-lead">The same steering hook, the same canvas and guide, applied to three frozen video priors.</p>
     <p class="section-note">No weight is changed. Bird&#39;s-eye, orbit and pan from one input image per scene.</p>
     <h3 class="title is-4" style="margin-top:1.6rem">Harbour</h3>
     <table style="width:100%;border-collapse:collapse">
