@@ -84,6 +84,15 @@
         <figure><span class="pipeline-step">4</span><video class="ours-video" src="./static/videos/pipeline/p46_truck_right_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Steered output (Wan 2.2)</figcaption></figure>
       </div>
     </div>
+    <div class="pipeline-card">
+      <div class="pipeline-title"><h3 class="title is-4">Steering strength</h3><span class="pipeline-pill">truck right</span></div>
+      <p class="section-note" style="margin-bottom:0.8rem">The same cell at three correction strengths. Weak steering leaves larger direction and travel errors; stronger steering follows the guide more closely but can distort structure. The published setting uses strength 1.0, decaying over the first 40&nbsp;percent of denoising.</p>
+      <div class="pipeline-row" style="grid-template-columns:repeat(3,1fr)">
+        <figure><video src="./static/videos/pipeline/strength_w05.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Weak (0.5), travels less</figcaption></figure>
+        <figure><video class="ours-video" src="./static/videos/pipeline/strength_ours.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Ours (1.0, decaying)</figcaption></figure>
+        <figure><video src="./static/videos/pipeline/strength_w15.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Strong (1.5)</figcaption></figure>
+      </div>
+    </div>
   </div>
 </section>
 
