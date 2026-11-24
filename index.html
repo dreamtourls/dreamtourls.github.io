@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DreamTour: Layout Steering for Training-Free World Exploration</title>
+  <meta name="description" content="Layout Steering makes a frozen video diffusion model, or a trained world model, follow a camera trajectory from a single input image, with no training.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/site.css">
+  <script defer src="./static/js/compare.js"></script>
+</head>
+<body>
+
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-1 publication-title"><img src="static/logo.png" alt="DreamTour" style="max-width:540px;width:85%;display:block;margin:0 auto 0.4rem;"><span class="sub">Layout Steering for Training-Free World Exploration</span></h1>
+      <div class="publication-authors">
+        <span class="author-block"><a href="https://vishu26.github.io/" target="_blank" rel="noopener">Srikumar Sastry</a><sup>1,2</sup>,</span>
+        <span class="author-block"><a href="https://scholar.google.com/citations?user=R14csHAAAAAJ" target="_blank" rel="noopener">Meher Gitika Karumuri</a><sup>1</sup>,</span>
+        <span class="author-block"><a href="https://scholar.google.com/citations?user=u_lYTIwAAAAJ&amp;hl=en" target="_blank" rel="noopener">Chenqi Li</a><sup>1,3</sup>,</span>
+        <span class="author-block"><a href="https://sarosijbose.github.io/" target="_blank" rel="noopener">Sarosij Bose</a><sup>1,4</sup>,</span>
+        <span class="author-block"><a href="https://meilongzhang.github.io/" target="_blank" rel="noopener">Mellon Zhang</a><sup>1,5</sup>,</span>
+        <span class="author-block"><a href="https://tuallen.github.io/" target="_blank" rel="noopener">Allen Tu</a><sup>1,6</sup>,</span>
+        <span class="author-block"><a href="https://openreview.net/profile?id=~Ziyang_Long1" target="_blank" rel="noopener">Ziyang Long</a><sup>1,8</sup>,</span>
+        <span class="author-block"><a href="https://sites.google.com/view/yenlianglin" target="_blank" rel="noopener">Yen-Liang Lin</a><sup>1</sup>,</span>
+        <span class="author-block"><a href="https://www.alexander-schwing.de/" target="_blank" rel="noopener">Alexander Schwing</a><sup>1,7</sup>,</span>
+        <span class="author-block"><a href="https://jacobsn.github.io/" target="_blank" rel="noopener">Nathan Jacobs</a><sup>2</sup></span>
+      </div>
+      <div class="publication-affiliations">
+        <span class="author-block"><sup>1</sup><a href="https://www.amazon.science/" target="_blank" rel="noopener">Amazon</a>,</span>
+        <span class="author-block"><sup>2</sup><a href="https://www.wustl.edu/" target="_blank" rel="noopener">Washington University in St. Louis</a>,</span>
+        <span class="author-block"><sup>3</sup><a href="https://www.ox.ac.uk/" target="_blank" rel="noopener">University of Oxford</a>,</span>
+        <span class="author-block"><sup>4</sup><a href="https://www.ucr.edu/" target="_blank" rel="noopener">University of California, Riverside</a>,</span><br>
+        <span class="author-block"><sup>5</sup><a href="https://www.gatech.edu/" target="_blank" rel="noopener">Georgia Institute of Technology</a>,</span>
+        <span class="author-block"><sup>6</sup><a href="https://www.umd.edu/" target="_blank" rel="noopener">University of Maryland, College Park</a>,</span>
+        <span class="author-block"><sup>7</sup><a href="https://illinois.edu/" target="_blank" rel="noopener">University of Illinois Urbana-Champaign</a>,</span>
+        <span class="author-block"><sup>8</sup><a href="https://www.ucla.edu/" target="_blank" rel="noopener">University of California, Los Angeles</a></span>
+      </div>
+      <div class="publication-links">
+        <a class="button is-dark" href="#" aria-disabled="true"><span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper (soon)</span></a>
+        <a class="button is-dark" href="#" aria-disabled="true"><span class="icon"><i class="fas fa-file-lines"></i></span><span>arXiv (soon)</span></a>
+        <a class="button is-dark" href="https://github.com/Vishu26/DreamTour" target="_blank" rel="noopener"><span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pipeline">
+  <div class="container teaser-wide-container has-text-centered">
+    <h2 class="title is-3">From one image to a guided tour</h2>
+    <p class="section-lead">The guide is a depth reprojection of the canvas, warped along the requested camera path.</p>
+    <p class="section-note">Left to right: the input image, the outpainted canvas whose margins hold what the camera will reveal, the rendered guide whose stretches and holes the prior never sees beyond its low frequencies, and the steered output.</p>
+    <div class="pipeline-card">
+      <div class="pipeline-title"><h3 class="title is-4">Mountain railway</h3><span class="pipeline-pill">zoom out</span></div>
+      <div class="pipeline-row">
+        <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p57_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
+        <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p57_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
+        <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p57_zoom_out_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
+        <figure><span class="pipeline-step">4</span><video class="ours-video" src="./static/videos/pipeline/p57_zoom_out_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Steered output (Wan 2.2)</figcaption></figure>
+      </div>
+    </div>
+    <div class="pipeline-card">
+      <div class="pipeline-title"><h3 class="title is-4">Shuttle launch</h3><span class="pipeline-pill">tilt up</span></div>
+      <div class="pipeline-row">
+        <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p56_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
+        <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p56_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
+        <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p56_tilt_up_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
+        <figure><span class="pipeline-step">4</span><video class="ours-video" src="./static/videos/pipeline/p56_tilt_up_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Steered output (Wan 2.2)</figcaption></figure>
+      </div>
+    </div>
+    <div class="pipeline-card">
+      <div class="pipeline-title"><h3 class="title is-4">Corgi drummer</h3><span class="pipeline-pill">truck right</span></div>
+      <div class="pipeline-row">
+        <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p46_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
+        <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p46_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
+        <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p46_truck_right_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
+        <figure><span class="pipeline-step">4</span><video class="ours-video" src="./static/videos/pipeline/p46_truck_right_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Steered output (Wan 2.2)</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser" aria-label="Layout steering on Wan 2.2">
+  <div class="hero-body">
+    <div class="container teaser-wide-container">
+      <h2 class="title is-3 has-text-centered">Layout steering on a frozen video prior: Wan&nbsp;2.2</h2>
+      <p class="section-note has-text-centered">One input image, one camera request. <b>Left of the divider:</b> the frozen prior (Wan&nbsp;2.2 TI2V-5B) with the camera sentence alone. <b>Right:</b> the same prior with layout steering. No weight is changed: the prior paints, the canvas says where the camera goes. Drag the divider.</p>
+      <div class="compare-grid two-by-two">
+        <div>
+          <div class="video-compare-container" data-left-label="Wan 2.2, camera text only" data-right-label="Wan 2.2 + layout steering (ours)">
+            <video loop muted playsinline preload="auto" poster="./static/videos/wan_f19_bev.jpg"><source src="./static/videos/wan_f19_bev.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="harbour, Bird's-eye, rise 2&nbsp;m: camera text only on the left, layout steering on the right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Bird's-eye, rise 2&nbsp;m</b> &middot; harbour</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="Wan 2.2, camera text only" data-right-label="Wan 2.2 + layout steering (ours)">
+            <video loop muted playsinline preload="auto" poster="./static/videos/wan_f19_orbit_left.jpg"><source src="./static/videos/wan_f19_orbit_left.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="harbour, Orbit left, 15&deg;: camera text only on the left, layout steering on the right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Orbit left, 15&deg;</b> &middot; harbour</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="Wan 2.2, camera text only" data-right-label="Wan 2.2 + layout steering (ours)">
+            <video loop muted playsinline preload="auto" poster="./static/videos/wan_f15_bev.jpg"><source src="./static/videos/wan_f15_bev.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="snow village, Bird's-eye, rise 2&nbsp;m: camera text only on the left, layout steering on the right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Bird's-eye, rise 2&nbsp;m</b> &middot; snow village</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="Wan 2.2, camera text only" data-right-label="Wan 2.2 + layout steering (ours)">
+            <video loop muted playsinline preload="auto" poster="./static/videos/wan_f15_pan_right.jpg"><source src="./static/videos/wan_f15_pan_right.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="snow village, Pan right, 20&deg;: camera text only on the left, layout steering on the right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Pan right, 20&deg;</b> &middot; snow village</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tinted" id="sanawm">
+  <div class="container teaser-wide-container">
+    <h2 class="title is-3 has-text-centered">Inside a trained world model: SANA-WM</h2>
+    <p class="section-lead">A trajectory-conditioned world model follows the direction; layout steering calibrates the distance.</p>
+    <p class="section-note has-text-centered">SANA-WM takes the camera trajectory as an input and still travels only part of the way: on these 1.6&nbsp;m moves the trajectory alone covers 8&ndash;24&nbsp;% of the request. The same steering hook, applied through its trajectory input, carries the camera the rest of the way (43&ndash;65&nbsp;%) at unchanged direction, and does the same on trajectories the model was never trained on. <b>Left:</b> trajectory input alone. <b>Right:</b> the same input with layout steering.</p>
+    <div class="compare-grid two-by-two">
+        <div>
+          <div class="video-compare-container" data-left-label="SANA-WM, trajectory input" data-right-label="SANA-WM + layout steering (ours)">
+            <video loop muted playsinline preload="metadata" poster="./static/videos/sanawm_f19_rise.jpg"><source src="./static/videos/sanawm_f19_rise.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="SANA-WM rise on the harbour: trajectory alone left, layout steering right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Rise</b>, 1.6&nbsp;m &middot; harbour</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="SANA-WM, trajectory input" data-right-label="SANA-WM + layout steering (ours)">
+            <video loop muted playsinline preload="metadata" poster="./static/videos/sanawm_f19_truck_right.jpg"><source src="./static/videos/sanawm_f19_truck_right.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="SANA-WM truck right on the harbour: trajectory alone left, layout steering right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Truck right</b>, 1.6&nbsp;m &middot; harbour</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="SANA-WM, trajectory input" data-right-label="SANA-WM + layout steering (ours)">
+            <video loop muted playsinline preload="metadata" poster="./static/videos/sanawm_f15_rise.jpg"><source src="./static/videos/sanawm_f15_rise.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="SANA-WM rise in the snow village: trajectory alone left, layout steering right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Rise</b>, 1.6&nbsp;m &middot; snow village</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="SANA-WM, trajectory input" data-right-label="SANA-WM + layout steering (ours)">
+            <video loop muted playsinline preload="metadata" poster="./static/videos/sanawm_f15_truck_right.jpg"><source src="./static/videos/sanawm_f15_truck_right.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="SANA-WM truck right in the snow village: trajectory alone left, layout steering right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Truck right</b>, 1.6&nbsp;m &middot; snow village</p>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="lyra">
+  <div class="container teaser-wide-container">
+    <h2 class="title is-3 has-text-centered">Inside a trained world model: Lyra&nbsp;2.0</h2>
+    <p class="section-lead">The same hook, unchanged, calibrates a second camera-conditioned world model.</p>
+    <p class="section-note has-text-centered">Lyra&nbsp;2.0 generates worlds from a single image and a metric camera trajectory, yet the realised travel drifts far past the request, up to fourfold on these scenes. The same steering hook calibrates it, with Lyra's own look untouched. <b>Left:</b> trajectory input alone. <b>Right:</b> the same input with layout steering.</p>
+            <div class="compare-grid two-by-two">
+        <div>
+          <div class="video-compare-container" data-left-label="Lyra 2.0, trajectory input" data-right-label="Lyra 2.0 + layout steering (ours)">
+            <video loop muted playsinline preload="metadata" poster="./static/videos/lyra_f18_rise.jpg"><source src="./static/videos/lyra_f18_rise.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Lyra 2.0 rise on the railway platform: trajectory alone left, layout steering right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Rise</b>, 1.6&nbsp;m &middot; railway platform</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="Lyra 2.0, trajectory input" data-right-label="Lyra 2.0 + layout steering (ours)">
+            <video loop muted playsinline preload="metadata" poster="./static/videos/lyra_f13_truck_left.jpg"><source src="./static/videos/lyra_f13_truck_left.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Lyra 2.0 truck left on the vineyard: trajectory alone left, layout steering right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Truck left</b>, 1.6&nbsp;m &middot; vineyard</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="Lyra 2.0, trajectory input" data-right-label="Lyra 2.0 + layout steering (ours)">
+            <video loop muted playsinline preload="metadata" poster="./static/videos/lyra_f14_truck_right.jpg"><source src="./static/videos/lyra_f14_truck_right.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Lyra 2.0 truck right on the lighthouse: trajectory alone left, layout steering right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Truck right</b>, 1.6&nbsp;m &middot; lighthouse</p>
+        </div>
+        <div>
+          <div class="video-compare-container" data-left-label="Lyra 2.0, trajectory input" data-right-label="Lyra 2.0 + layout steering (ours)">
+            <video loop muted playsinline preload="metadata" poster="./static/videos/lyra_f21_forward.jpg"><source src="./static/videos/lyra_f21_forward.mp4" type="video/mp4"></video>
+            <canvas class="videoMerge" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Lyra 2.0 forward on the rooftop terrace: trajectory alone left, layout steering right"></canvas>
+          </div>
+          <p class="compare-caption"><b>Forward</b>, 1.6&nbsp;m &middot; rooftop terrace</p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tinted" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>Video diffusion and world models generate plausible videos but do not reliably match the requested camera direction and travel distance. We present <em>DreamTour</em>, a training-free framework that generates camera tours from a single image with more accurate control over camera motion. DreamTour first uses a frozen image inpainting prior to extend the photograph beyond its original field of view while preserving the input pixels. Depth-based rendering of this extended scene along the requested camera path produces approximate target views that serve as spatial guidance. We introduce <em>Layout Steering</em>, which aligns early video latents with these views through decaying low-frequency corrections, leaving later denoising to refine appearance and dynamics. For longer tours, we autoregressively generate the video segments, repeating guidance construction from each segment's final frame to maintain camera control across the full trajectory. DreamTour improves directional accuracy and travel calibration on VBench while maintaining competitive video quality. On WorldScore, it strengthens camera control and scene consistency across chained movements. Together, these results demonstrate that training-free spatial guidance enables more accurate and consistent camera control in pretrained video diffusion and world models. Code will be released.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="method">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Method</h2>
+    <p class="section-note"><b>Expand the image once, render the requested path, steer only the low frequencies.</b></p>
+    <figure class="method-figure"><img src="./static/images/method_overview.png" alt="Overview of DreamTour: a frozen inpainting model expands the input image into a canvas, views rendered along the trajectory with Pi3X depth are encoded as the guide latent, and decaying low-frequency corrections steer early denoising of the frozen video model"></figure>
+    <p class="section-note has-text-justified" style="margin-top:1rem">A frozen inpainting prior (FLUX.1 Fill) expands the input image into a canvas in one pass, with the input pixels preserved exactly. A depth estimate, rescaled once to the scene's metric median depth, lifts the canvas into a textured point cloud, and rendering it along the requested trajectory produces a guide video of approximate target views. During the first 40&nbsp;percent of denoising, Layout Steering adds a decaying low-frequency correction that aligns the video latent with the noised guide latent, and the remaining steps run the frozen sampler unchanged, so the prior supplies parallax, disocclusions and fine detail. For longer tours each window starts from the previous window's final frame, with a fresh canvas and guide. Nothing is trained, and the same hook steers video diffusion models and camera-conditioned world models.</p>
+  </div>
+</section>
+
+
+
+
+
+<section class="section section-tinted" id="comparisons">
+  <div class="container teaser-wide-container has-text-centered">
+    <h2 class="title is-3">Camera control, side by side</h2>
+    <p class="section-lead">Each pair: the model's own camera control, then the same frozen model with layout steering.</p>
+    <p class="section-note">Benchmark cells from the paper. Each column shows the model's own camera control above layout steering added to the same model (blue frame).</p>
+    <h3 class="title is-4" style="margin-top:1.6rem">Wan 2.2 TI2V-5B</h3>
+    <div class="bench-grid">
+      <div><p class="compare-caption"><b>Sewing machine, forward</b></p><figure><video src="./static/videos/bench/text_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Pandas, tilt up</b></p><figure><video src="./static/videos/bench/text_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Corgi drummer, truck right</b></p><figure><video src="./static/videos/bench/text_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Sea turtle, zoom out</b></p><figure><video src="./static/videos/bench/text_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+    </div>
+    <h3 class="title is-4" style="margin-top:1.6rem">SANA-WM</h3>
+    <div class="bench-grid">
+      <div><p class="compare-caption"><b>Sewing machine, forward</b></p><figure><video src="./static/videos/bench/sanawmtraj_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Pandas, tilt up</b></p><figure><video src="./static/videos/bench/sanawmtraj_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Corgi drummer, truck right</b></p><figure><video src="./static/videos/bench/sanawmtraj_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Sea turtle, zoom out</b></p><figure><video src="./static/videos/bench/sanawmtraj_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+    </div>
+    <h3 class="title is-4" style="margin-top:1.6rem">Lyra 2.0</h3>
+    <div class="bench-grid">
+      <div><p class="compare-caption"><b>Sewing machine, forward</b></p><figure><video src="./static/videos/bench/lyratraj_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Pandas, tilt up</b></p><figure><video src="./static/videos/bench/lyratraj_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Corgi drummer, truck right</b></p><figure><video src="./static/videos/bench/lyratraj_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Sea turtle, zoom out</b></p><figure><video src="./static/videos/bench/lyratraj_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="onehook">
+  <div class="container teaser-wide-container has-text-centered">
+    <h2 class="title is-3">One hook, three priors</h2>
+    <p class="section-lead">The same steering hook, the same canvas and guide, on three frozen video priors.</p>
+    <p class="section-note">No weight is changed. Bird&#39;s-eye, orbit and pan from one input image per scene.</p>
+    <h3 class="title is-4" style="margin-top:1.6rem">Harbour</h3>
+    <table style="width:100%;border-collapse:collapse">
+      <tr><th style="width:12%"></th><th class="bench-label" style="text-align:center">Bird's-eye, rise 2&nbsp;m</th><th class="bench-label" style="text-align:center">Orbit left 12&deg;</th><th class="bench-label" style="text-align:center">Pan right 20&deg;</th></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img src="./static/images/onehook/f19_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img src="./static/images/onehook/f19_sana_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_sana_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_sana_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img src="./static/images/onehook/f19_cog_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_cog_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_cog_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+    </table>
+    <h3 class="title is-4" style="margin-top:1.6rem">Alley</h3>
+    <table style="width:100%;border-collapse:collapse">
+      <tr><th style="width:12%"></th><th class="bench-label" style="text-align:center">Bird's-eye, rise 2&nbsp;m</th><th class="bench-label" style="text-align:center">Orbit left 12&deg;</th><th class="bench-label" style="text-align:center">Pan right 20&deg;</th></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img src="./static/images/onehook/f00_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img src="./static/images/onehook/f00_sana_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_sana_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_sana_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img src="./static/images/onehook/f00_cog_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_cog_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_cog_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+    </table>
+    <h3 class="title is-4" style="margin-top:1.6rem">Alpine village</h3>
+    <table style="width:100%;border-collapse:collapse">
+      <tr><th style="width:12%"></th><th class="bench-label" style="text-align:center">Bird's-eye, rise 2&nbsp;m</th><th class="bench-label" style="text-align:center">Orbit left 12&deg;</th><th class="bench-label" style="text-align:center">Pan right 20&deg;</th></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img src="./static/images/onehook/f15_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img src="./static/images/onehook/f15_sana_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_sana_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_sana_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img src="./static/images/onehook/f15_cog_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_cog_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_cog_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+    </table>
+  </div>
+</section>
+
+<style>
+.bench-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:0.6rem}
+.bench-grid video{width:100%;border-radius:6px;display:block}
+.bench-grid figure{margin:0}
+.ours-video{border:4px solid #1f497d}
+.bench-label{font-size:0.8rem;color:#555;margin:2px 0 8px}
+.ours-label{color:#1f497d;font-weight:600}
+@media (max-width:860px){.bench-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script>
+document.querySelectorAll('.bench-grid video, .pipeline-row video').forEach(function (v) {
+  new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) v.play().catch(function () {}); else v.pause(); }); }, { threshold: 0.2 }).observe(v);
+});
+</script>
+
+
+
+
+
+
+
+<section class="section section-tinted" id="results">
+  <div class="container teaser-wide-container has-text-centered">
+    <h2 class="title is-3">Results at a glance</h2>
+    <p class="section-lead">The paper&#39;s quantitative tables: camera control under the CamProbe protocol, WorldScore, and the human study.</p>
+    <p class="section-note">Eight camera motions on the 93 VBench prompts, poses from Depth Anything 3, no trajectory alignment or scale fitting. Shaded rows apply layout steering to the frozen base model; the training column marks camera-control training beyond the base prior.</p>
+    <div class="results-tabs">
+      <button class="button is-small results-tab is-active" data-tab="rt1">Camera control (CamProbe)</button>
+      <button class="button is-small results-tab" data-tab="rt2">WorldScore</button>
+      <button class="button is-small results-tab" data-tab="rt3">Human study</button>
+    </div>
+    <div id="rt1" class="results-pane"><table class="results-table"><thead><tr><th></th><th></th><th></th><th colspan="2">Camera Control &darr;</th><th colspan="3">Camera Aim &amp; Displacement &darr;</th><th colspan="3">Video Quality &uarr;</th></tr><tr><th>Base video prior</th><th>Method</th><th>Training</th><th>RPE-T (m)</th><th>RPE-R (&deg;)</th><th>Dir. (&deg;)</th><th>Travel Err.</th><th>Rot. Err.</th><th>Imaging</th><th>Smoothness</th><th>Consistency</th></tr></thead><tbody><tr class=""><td>Cosmos-Predict1 7B</td><td>Gen3C</td><td>&#10003;</td><td>0.044</td><td>0.67</td><td>5.2</td><td>0.36</td><td>0.05</td><td>70.84</td><td>99.21</td><td>97.09</td></tr><tr class="ours-row"><td></td><td><b>+ Layout Steering (Ours)</b></td><td>&#10007;</td><td>0.038</td><td>0.59</td><td>44.3</td><td>0.32</td><td>0.44</td><td>70.97</td><td>99.24</td><td>96.97</td></tr><tr class=""><td>CogVideoX-Fun 5B</td><td>TrajectoryCrafter</td><td>&#10003;</td><td>0.058</td><td>0.84</td><td>37.6</td><td>0.65</td><td>0.51</td><td>70.90</td><td>99.20</td><td>96.14</td></tr><tr class="ours-row"><td></td><td><b>+ Layout Steering (Ours)</b></td><td>&#10007;</td><td>0.045</td><td>0.88</td><td>32.6</td><td>0.59</td><td>0.48</td><td>69.29</td><td>98.79</td><td>96.21</td></tr><tr class=""><td>Wan 2.1 1.3B</td><td>ReCamMaster</td><td>&#10003;</td><td>0.034</td><td>0.58</td><td>26.5</td><td>0.63</td><td>0.30</td><td>70.81</td><td>99.24</td><td>96.03</td></tr><tr class="ours-row"><td></td><td><b>+ Layout Steering (Ours)</b></td><td>&#10007;</td><td>0.031</td><td>0.49</td><td>29.0</td><td>0.55</td><td>0.42</td><td>71.08</td><td>98.84</td><td>96.42</td></tr><tr class=""><td>Wan 2.2 5B</td><td>Camera Text Alone</td><td>&#10007;</td><td>0.053</td><td>1.18</td><td>93.8</td><td>1.01</td><td>1.02</td><td>71.49</td><td>98.15</td><td>95.49</td></tr><tr class=""><td></td><td>+ CamTrol</td><td>&#10007;</td><td>0.045</td><td>0.88</td><td>78.0</td><td>1.00</td><td>0.95</td><td>70.93</td><td>99.12</td><td>98.00</td></tr><tr class=""><td></td><td>+ CamProbe</td><td>&#10007;</td><td>0.065</td><td>0.77</td><td>70.7</td><td>0.99</td><td>0.89</td><td>68.58</td><td>99.08</td><td>96.03</td></tr><tr class="ours-row"><td></td><td><b>+ Layout Steering (Ours)</b></td><td>&#10007;</td><td>0.040</td><td>0.74</td><td>32.4</td><td>0.68</td><td>0.39</td><td>71.33</td><td>99.76</td><td>98.27</td></tr><tr class=""><td>SANA-Video 1.0 2B</td><td>SANA-WM</td><td>&#10003;</td><td>0.039</td><td>0.60</td><td>70.0</td><td>1.00</td><td>1.00</td><td>71.66</td><td>99.29</td><td>97.95</td></tr><tr class="ours-row"><td></td><td><b>+ Layout Steering (Ours)</b></td><td>&#10007;</td><td>0.032</td><td>0.41</td><td>37.3</td><td>0.68</td><td>0.39</td><td>71.73</td><td>99.40</td><td>97.95</td></tr><tr class=""><td>Wan 2.1 14B</td><td>Lyra 2.0</td><td>&#10003;</td><td>0.067</td><td>0.70</td><td>56.0</td><td>2.12</td><td>1.06</td><td>71.85</td><td>99.10</td><td>95.30</td></tr><tr class="ours-row"><td></td><td><b>+ Layout Steering (Ours)</b></td><td>&#10007;</td><td>0.048</td><td>0.64</td><td>55.8</td><td>1.64</td><td>0.64</td><td>71.89</td><td>99.19</td><td>94.98</td></tr></tbody></table></div>
+    <div id="rt2" class="results-pane" style="display:none"><table class="results-table"><thead><tr><th></th><th></th><th colspan="3">Scene Consistency &uarr;</th></tr><tr><th>Method</th><th>Camera Control &uarr;</th><th>3D</th><th>Photometric</th><th>Style</th></tr></thead><tbody><tr class=""><td>Wan 2.2</td><td>27.46</td><td>87.74</td><td>93.46</td><td>96.73</td></tr><tr class=""><td>+ CamTrol</td><td>29.43</td><td>88.68</td><td>93.74</td><td>97.28</td></tr><tr class=""><td>+ CamProbe</td><td><b>33.21</b></td><td>67.71</td><td>72.79</td><td>66.73</td></tr><tr class="ours-row"><td><b>+ Layout Steering (Ours)</b></td><td>31.30</td><td><b>89.05</b></td><td><b>94.26</b></td><td><b>97.96</b></td></tr><tr class=""><td>SANA-WM</td><td>45.88</td><td>84.91</td><td>89.34</td><td>82.25</td></tr><tr class="ours-row"><td><b>+ Layout Steering (Ours)</b></td><td><b>54.56</b></td><td><b>85.65</b></td><td><b>89.93</b></td><td><b>87.98</b></td></tr><tr class=""><td>Lyra 2.0</td><td>48.83</td><td>84.10</td><td>72.88</td><td>60.38</td></tr><tr class="ours-row"><td><b>+ Layout Steering (Ours)</b></td><td><b>49.07</b></td><td><b>86.39</b></td><td><b>75.19</b></td><td><b>62.35</b></td></tr></tbody></table></div>
+    <div id="rt3" class="results-pane" style="display:none"><table class="results-table"><thead><tr><th>Mean Rank &darr;</th><th>Model</th><th>Control method</th><th>First Place &uarr;</th></tr></thead><tbody><tr class="ours-row"><td>2.84</td><td>SANA-WM</td><td><b>+ Layout Steering (Ours)</b></td><td>30.00%</td></tr><tr class="ours-row"><td>3.03</td><td>Wan 2.2</td><td><b>+ Layout Steering (Ours)</b></td><td>20.00%</td></tr><tr class=""><td>3.20</td><td>Lyra 2.0</td><td>Trajectory Alone</td><td>20.00%</td></tr><tr class="ours-row"><td>3.58</td><td>Lyra 2.0</td><td><b>+ Layout Steering (Ours)</b></td><td>11.25%</td></tr><tr class=""><td>4.00</td><td>SANA-WM</td><td>Trajectory Alone</td><td>11.25%</td></tr><tr class=""><td>4.36</td><td>Wan 2.2</td><td>Camera Text Alone</td><td>7.50%</td></tr></tbody></table></div>
+  </div>
+</section>
+<script>
+document.querySelectorAll('.results-tab').forEach(function (b) {
+  b.addEventListener('click', function () {
+    document.querySelectorAll('.results-tab').forEach(function (x) { x.classList.remove('is-active'); });
+    document.querySelectorAll('.results-pane').forEach(function (p) { p.style.display = 'none'; });
+    b.classList.add('is-active');
+    document.getElementById(b.dataset.tab).style.display = '';
+  });
+});
+</script>
+
+<section class="section bibtex" id="bibtex">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+<pre>@misc{dreamtour2026,
+  title  = {DreamTour: Layout Steering for Training-Free World Exploration},
+  author = {Sastry, Srikumar and Karumuri, Meher Gitika and Li, Chenqi and Bose, Sarosij and Zhang, Mellon and Tu, Allen and Long, Ziyang and Lin, Yen-Liang and Schwing, Alexander and Jacobs, Nathan},
+  year   = {2026}
+}</pre>
+  </div>
+</section>
+
+<section class="section section-tinted" id="acknowledgements">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Acknowledgements</h2>
+    <div class="content has-text-justified">
+      <p>This work was completed during an internship at Amazon. We thank Amin Kheradmand, Avinash Ravichandran, David Stafford, Pranav Sankar and Shifan Zhu for helpful discussions and feedback.</p>
+      <p>Page layout after the <a href="https://3dgofish.github.io/" target="_blank" rel="noopener">GOFish</a> and <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a> project pages. Comparison sliders: drag or use the arrow keys; Space pauses.</p>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>&copy; 2026 <a href="https://www.amazon.science/" target="_blank" rel="noopener">Amazon</a></p>
+  </div>
+</footer>
+
+
+</body>
+</html>
