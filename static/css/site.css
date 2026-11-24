@@ -77,3 +77,13 @@ body { font-family: "Noto Sans", "Helvetica Neue", Arial, sans-serif; color: var
 .pipeline-row img, .pipeline-row video { transition: transform .25s ease; }
 .pipeline-card:hover .pipeline-row img, .pipeline-card:hover .pipeline-row video { transform: translateY(-2px); }
 @media (max-width: 860px) { .pipeline-row figure:not(:last-child)::after { display: none; } }
+
+/* steering-strength slider (pipeline cards) */
+.strength-stack{position:relative;aspect-ratio:1280/704;border-radius:6px;overflow:hidden;background:#000}
+.strength-stack video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .18s ease}
+.strength-stack video.active{opacity:1}
+.strength-slider{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.6rem;margin-top:0.85rem;border-top:1px solid #e8edf3;padding-top:0.85rem;font-size:0.85rem;color:#555}
+.strength-slider input[type=range]{width:min(320px,45%);accent-color:#3273dc;cursor:pointer}
+.strength-slider .ss-end{color:#999;font-size:0.8rem}
+.strength-slider .ss-val{font-weight:700;color:#3273dc;min-width:2.2em;text-align:left}
+.ss-pending{display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:rgba(10,14,20,0.55);color:#fff;font-size:0.85rem;letter-spacing:0.03em;z-index:2}

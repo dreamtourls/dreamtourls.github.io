@@ -63,13 +63,18 @@
         <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p57_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
         <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p57_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
         <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p57_zoom_out_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
-        <figure><span class="pipeline-step">4</span><video class="ours-video" src="./static/videos/pipeline/p57_zoom_out_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Steered output (Wan 2.2)</figcaption></figure>
+        <figure><span class="pipeline-step">4</span><div class="strength-stack">
+          <video class="sw active" data-w="1.0" src="./static/videos/pipeline/p57_zoom_out_w10.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.2" src="./static/videos/pipeline/p57_zoom_out_w12.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.4" src="./static/videos/pipeline/p57_zoom_out_w14.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.6" src="./static/videos/pipeline/p57_zoom_out_w16.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.8" src="./static/videos/pipeline/p57_zoom_out_w18.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="2.0" src="./static/videos/pipeline/p57_zoom_out_w20.mp4" muted loop playsinline preload="auto"></video>
+        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), weight <span class="wv">1.0</span></figcaption></figure>
       </div>
-      <p class="bench-label" style="margin:0.7rem 0 0.3rem;border-top:1px solid #e8edf3;padding-top:0.7rem"><b>Steering strength</b> &middot; same scene, same seed &middot; weak steering travels less</p>
-      <div class="pipeline-row" style="grid-template-columns:repeat(3,1fr)">
-        <figure><video src="./static/videos/pipeline/p57_zoom_out_w05.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Weak (0.5)</figcaption></figure>
-        <figure><video src="./static/videos/pipeline/p57_zoom_out_w10.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Moderate (1.0)</figcaption></figure>
-        <figure><video class="ours-video" src="./static/videos/pipeline/p57_zoom_out_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Strong (1.5, shown above)</figcaption></figure>
+      <div class="strength-slider">
+        <span><b>Choose the strength to control the camera travel</b></span>
+        <span class="ss-end">1.0</span><input type="range" min="1" max="2" step="0.2" value="1.0" aria-label="Steering strength"><span class="ss-end">2.0</span><span class="ss-val">1.0</span>
       </div>
     </div>
     <div class="pipeline-card">
@@ -78,13 +83,18 @@
         <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p56_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
         <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p56_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
         <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p56_tilt_up_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
-        <figure><span class="pipeline-step">4</span><video class="ours-video" src="./static/videos/pipeline/p56_tilt_up_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Steered output (Wan 2.2)</figcaption></figure>
+        <figure><span class="pipeline-step">4</span><div class="strength-stack">
+          <video class="sw active" data-w="1.0" src="./static/videos/pipeline/p56_tilt_up_w10.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.2" src="./static/videos/pipeline/p56_tilt_up_w12.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.4" src="./static/videos/pipeline/p56_tilt_up_w14.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.6" src="./static/videos/pipeline/p56_tilt_up_w16.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.8" src="./static/videos/pipeline/p56_tilt_up_w18.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="2.0" src="./static/videos/pipeline/p56_tilt_up_w20.mp4" muted loop playsinline preload="auto"></video>
+        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), weight <span class="wv">1.0</span></figcaption></figure>
       </div>
-      <p class="bench-label" style="margin:0.7rem 0 0.3rem;border-top:1px solid #e8edf3;padding-top:0.7rem"><b>Steering strength</b> &middot; same scene, same seed &middot; weak steering travels less</p>
-      <div class="pipeline-row" style="grid-template-columns:repeat(3,1fr)">
-        <figure><video src="./static/videos/pipeline/p56_tilt_up_w05.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Weak (0.5)</figcaption></figure>
-        <figure><video src="./static/videos/pipeline/p56_tilt_up_w10.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Moderate (1.0)</figcaption></figure>
-        <figure><video class="ours-video" src="./static/videos/pipeline/p56_tilt_up_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Strong (1.5, shown above)</figcaption></figure>
+      <div class="strength-slider">
+        <span><b>Choose the strength to control the camera travel</b></span>
+        <span class="ss-end">1.0</span><input type="range" min="1" max="2" step="0.2" value="1.0" aria-label="Steering strength"><span class="ss-end">2.0</span><span class="ss-val">1.0</span>
       </div>
     </div>
     <div class="pipeline-card">
@@ -93,13 +103,18 @@
         <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p46_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
         <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p46_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
         <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p46_truck_right_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
-        <figure><span class="pipeline-step">4</span><video class="ours-video" src="./static/videos/pipeline/p46_truck_right_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Steered output (Wan 2.2)</figcaption></figure>
+        <figure><span class="pipeline-step">4</span><div class="strength-stack">
+          <video class="sw active" data-w="1.0" src="./static/videos/pipeline/p46_truck_right_w10.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.2" src="./static/videos/pipeline/p46_truck_right_w12.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.4" src="./static/videos/pipeline/p46_truck_right_w14.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.6" src="./static/videos/pipeline/p46_truck_right_w16.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1.8" src="./static/videos/pipeline/p46_truck_right_w18.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="2.0" src="./static/videos/pipeline/p46_truck_right_w20.mp4" muted loop playsinline preload="auto"></video>
+        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), weight <span class="wv">1.0</span></figcaption></figure>
       </div>
-      <p class="bench-label" style="margin:0.7rem 0 0.3rem;border-top:1px solid #e8edf3;padding-top:0.7rem"><b>Steering strength</b> &middot; same scene, same seed &middot; weak steering travels less</p>
-      <div class="pipeline-row" style="grid-template-columns:repeat(3,1fr)">
-        <figure><video src="./static/videos/pipeline/p46_truck_right_w05.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Weak (0.5)</figcaption></figure>
-        <figure><video src="./static/videos/pipeline/p46_truck_right_w10.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Moderate (1.0)</figcaption></figure>
-        <figure><video class="ours-video" src="./static/videos/pipeline/p46_truck_right_out.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label ours-label">Strong (1.5, shown above)</figcaption></figure>
+      <div class="strength-slider">
+        <span><b>Choose the strength to control the camera travel</b></span>
+        <span class="ss-end">1.0</span><input type="range" min="1" max="2" step="0.2" value="1.0" aria-label="Steering strength"><span class="ss-end">2.0</span><span class="ss-val">1.0</span>
       </div>
     </div>
   </div>
@@ -317,7 +332,32 @@
 </style>
 <script>
 document.querySelectorAll('.bench-grid video, .pipeline-row video').forEach(function (v) {
+  if (v.closest('.strength-stack')) return;
   new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) v.play().catch(function () {}); else v.pause(); }); }, { threshold: 0.2 }).observe(v);
+});
+document.querySelectorAll('.strength-stack').forEach(function (st) {
+  new IntersectionObserver(function (es) { es.forEach(function (e) {
+    if (e.isIntersecting) { var a = st.querySelector('video.active'); if (a) a.play().catch(function () {}); }
+    else st.querySelectorAll('video').forEach(function (v) { v.pause(); });
+  }); }, { threshold: 0.2 }).observe(st);
+});
+document.querySelectorAll('.strength-slider input').forEach(function (r) {
+  var card = r.closest('.pipeline-card'), st = card.querySelector('.strength-stack');
+  var val = card.querySelector('.ss-val'), cap = card.querySelector('.wv');
+  st.querySelectorAll('video').forEach(function (v) { v.addEventListener('error', function () { v.dataset.missing = '1'; }); });
+  r.addEventListener('input', function () {
+    var w = parseFloat(r.value).toFixed(1);
+    val.textContent = w; if (cap) cap.textContent = w;
+    var cur = st.querySelector('video.active'), nxt = st.querySelector('video[data-w="' + w + '"]');
+    var pend = st.querySelector('.ss-pending');
+    if (pend) pend.style.display = (nxt && nxt.dataset.missing) ? 'flex' : 'none';
+    if (!nxt || nxt === cur || nxt.dataset.missing) return;
+    try { nxt.currentTime = cur ? cur.currentTime : 0; } catch (err) {}
+    nxt.play().catch(function () {});
+    if (cur) cur.classList.remove('active');
+    nxt.classList.add('active');
+    setTimeout(function () { st.querySelectorAll('video:not(.active)').forEach(function (v) { v.pause(); }); }, 220);
+  });
 });
 </script>
 
