@@ -105,7 +105,7 @@
     <h2 class="title is-3">Method</h2>
     <p class="section-note"><b>Expand the input image once, render the requested path, steer early denoising with decaying low-frequency corrections.</b></p>
     <figure class="method-figure"><img src="./static/images/method_overview.png" alt="Overview of DreamTour: a frozen inpainting model expands the input image into a canvas, views rendered along the trajectory with Pi3X depth are encoded as the guide latent, and decaying low-frequency corrections steer early denoising of the frozen video model"></figure>
-    <p class="section-note has-text-justified" style="margin-top:1rem">A frozen inpainting prior (FLUX.1 Fill) expands the input image into a canvas in one pass, with the input pixels preserved exactly. A depth estimate, rescaled once to the scene's metric median depth, lifts the canvas into a textured point cloud, and rendering it along the requested trajectory produces a guide video of approximate target views. During the first 40&nbsp;percent of denoising, Layout Steering adds a decaying low-frequency correction that aligns the video latent with the noised guide latent, and the remaining steps run the frozen sampler unchanged, so the prior supplies parallax, disocclusions and fine detail. For longer tours each window starts from the previous window's final frame, with a fresh canvas and guide. All pretrained weights remain frozen, and the same hook steers image-to-video diffusion models and camera-conditioned world models.</p>
+    <p class="section-note has-text-justified" style="margin-top:1rem">A frozen inpainting prior (FLUX.1 Fill) expands the input image into a canvas in one pass, with the input pixels preserved exactly. A depth estimate, rescaled once to the scene's metric median depth, lifts the canvas into a textured point cloud, and rendering it along the requested trajectory produces a guide video of approximate target views. During the first 40&nbsp;percent of denoising, Layout Steering adds a decaying low-frequency correction that aligns the video latent with the noised guide latent, and the remaining steps run the frozen sampler unchanged, so the prior supplies parallax, disocclusions and fine detail. For longer tours each window starts from the previous window's final frame, with a fresh canvas and guide. All pretrained weights remain frozen, and this training-free design applies to both image-to-video diffusion models and camera-conditioned world models.</p>
   </div>
 </section>
 
@@ -190,8 +190,8 @@
 <section class="section" id="lyra">
   <div class="container teaser-wide-container">
     <h2 class="title is-3 has-text-centered">Inside a trained world model: Lyra&nbsp;2.0</h2>
-    <p class="section-lead">The same hook, unchanged, calibrates a second camera-conditioned world model with its trajectory input retained.</p>
-    <p class="section-note has-text-centered">Lyra&nbsp;2.0 generates worlds from a single image and a metric camera trajectory, yet the realised travel drifts far past the request, up to fourfold on these scenes. The same steering hook calibrates it, with Lyra's own look untouched. <b>Left:</b> trajectory input alone. <b>Right:</b> the same input with layout steering.</p>
+    <p class="section-lead">Layout Steering, unchanged, calibrates a second camera-conditioned world model with its trajectory input retained.</p>
+    <p class="section-note has-text-centered">Lyra&nbsp;2.0 generates worlds from a single image and a metric camera trajectory, yet the realised travel drifts far past the request, up to fourfold on these scenes. Layout Steering calibrates it, with Lyra's appearance untouched. <b>Left:</b> trajectory input alone. <b>Right:</b> the same input with layout steering.</p>
             <div class="compare-grid two-by-two">
         <div>
           <div class="video-compare-container" data-left-label="Lyra 2.0, trajectory input" data-right-label="Lyra 2.0 + layout steering (ours)">
@@ -264,8 +264,8 @@
 
 <section class="section" id="onehook">
   <div class="container teaser-wide-container has-text-centered">
-    <h2 class="title is-3">One hook, three priors</h2>
-    <p class="section-lead">The same steering hook, the same canvas and guide, applied to three frozen video priors.</p>
+    <h2 class="title is-3">One method, three priors</h2>
+    <p class="section-lead">The same Layout Steering, the same canvas and guide, applied to three frozen video priors.</p>
     <p class="section-note">No weight is changed. Bird&#39;s-eye, orbit and pan from one input image per scene.</p>
     <h3 class="title is-4" style="margin-top:1.6rem">Harbour</h3>
     <table style="width:100%;border-collapse:collapse">
