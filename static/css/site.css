@@ -123,3 +123,6 @@ img[width][height], video[width][height] { height: auto; }
 .pipeline-row figure:not(:last-child)::after { right: auto; left: calc(100% + 5px); transform: translate(-50%, -50%); line-height: 1; }
 /* Wrapped captions split evenly instead of leaving a lone word on the last line. */
 .pipeline-row figcaption, .bench-label { text-wrap: balance; }
+/* One shape for all four pipeline tiles (input, canvas, guide, steered output). */
+.pipeline-row img, .pipeline-row video, .strength-stack { aspect-ratio: 832 / 480; object-fit: cover; height: auto; }
+.strength-stack video { height: 100%; }
