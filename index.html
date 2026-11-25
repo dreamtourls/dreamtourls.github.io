@@ -93,24 +93,6 @@
         <span class="ss-end">20%</span><input type="range" min="20" max="80" step="20" value="40" aria-label="Steering strength"><span class="ss-end">80%</span><span class="ss-val">40%</span>
       </div>
     </div>
-    <div class="pipeline-card">
-      <div class="pipeline-title"><span class="pipeline-pill">pan left</span></div>
-      <div class="pipeline-row">
-        <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p26_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
-        <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p26_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
-        <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p26_pan_left_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
-        <figure><span class="pipeline-step">4</span><div class="strength-stack">
-          <video class="sw" data-w="20" src="./static/videos/pipeline/p26_pan_left_k10.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw active" data-w="40" src="./static/videos/pipeline/p26_pan_left_out.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw" data-w="60" src="./static/videos/pipeline/p26_pan_left_k30.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw" data-w="80" src="./static/videos/pipeline/p26_pan_left_k40.mp4" muted loop playsinline preload="auto"></video>
-        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), steered for the first <span class="wv">40%</span> of steps</figcaption></figure>
-      </div>
-      <div class="strength-slider">
-        <span><b>Choose the steering duration to control the camera travel</b></span>
-        <span class="ss-end">20%</span><input type="range" min="20" max="80" step="20" value="40" aria-label="Steering strength"><span class="ss-end">80%</span><span class="ss-val">40%</span>
-      </div>
-    </div>
   </div>
 </section>
 
