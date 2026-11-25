@@ -10,8 +10,17 @@
     const ctx = canvas.getContext("2d");
     const leftLabel = container.dataset.leftLabel || "", rightLabel = container.dataset.rightLabel || "";
     let pos = 0.5, raf = null, hover = false;
+    // Until the video has a frame, the poster (the same side-by-side frame) stands in,
+    // so a lazily loaded comparison never shows an empty canvas.
+    const poster = new Image();
+    if (video.poster) poster.src = video.poster;
+    function source() {
+      if (video.readyState >= 2) return {el: video, w: video.videoWidth, h: video.videoHeight};
+      if (poster.complete && poster.naturalWidth) return {el: poster, w: poster.naturalWidth, h: poster.naturalHeight};
+      return {el: null, w: 0, h: 0};
+    }
     function size() {
-      const w = container.clientWidth, vw = video.videoWidth / 2, vh = video.videoHeight;
+      const src = source(), w = container.clientWidth, vw = src.w / 2, vh = src.h;
       if (!w || !vw || !vh) return;
       const h = Math.round(w * vh / vw);
       if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
@@ -27,11 +36,11 @@
     }
     function draw() {
       size();
-      const w = canvas.width, h = canvas.height, vw = video.videoWidth / 2, vh = video.videoHeight;
-      if (w && vw && vh && video.readyState >= 2) {
+      const src = source(), w = canvas.width, h = canvas.height, vw = src.w / 2, vh = src.h;
+      if (w && vw && vh && src.el) {
         const split = Math.round(pos * w);
-        ctx.drawImage(video, 0, 0, vw * pos, vh, 0, 0, split, h);                          // left half of the video, left of the divider
-        ctx.drawImage(video, vw + vw * pos, 0, vw * (1 - pos), vh, split, 0, w - split, h);   // right half of the video, right of the divider
+        ctx.drawImage(src.el, 0, 0, vw * pos, vh, 0, 0, split, h);                          // left half of the video, left of the divider
+        ctx.drawImage(src.el, vw + vw * pos, 0, vw * (1 - pos), vh, split, 0, w - split, h);   // right half of the video, right of the divider
         ctx.fillStyle = "rgba(255,255,255,0.9)"; ctx.fillRect(split - 1, 0, 2, h);
         ctx.beginPath(); ctx.arc(split, h / 2, 16, 0, Math.PI * 2); ctx.fillStyle = "rgba(255,255,255,0.92)"; ctx.fill();
         ctx.fillStyle = "#333"; ctx.font = "bold 15px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("↔", split, h / 2 + 1);
@@ -54,9 +63,12 @@
     });
     canvas.addEventListener("click", function () { if (video.paused) video.play(); });
     video.addEventListener("loadedmetadata", size); window.addEventListener("resize", size);
-    const start = function () { if (!raf) draw(); video.play().catch(function () {}); };
+    // Play only while on screen: a clip that becomes playable off screen waits for the observer.
+    let visible = false;
+    const start = function () { if (!raf) draw(); if (visible) video.play().catch(function () {}); };
     if (video.readyState >= 2) start(); else video.addEventListener("canplay", start, { once: true });
-    const io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) video.play().catch(function () {}); else video.pause(); }); }, { threshold: 0.1 });
+    poster.addEventListener("load", function () { if (!raf) draw(); }, { once: true });
+    const io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { visible = en.isIntersecting; if (visible) video.play().catch(function () {}); else video.pause(); }); }, { threshold: 0.1 });
     io.observe(container);
   }
   document.addEventListener("DOMContentLoaded", function () { document.querySelectorAll(".video-compare-container").forEach(setup); });

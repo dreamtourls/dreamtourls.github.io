@@ -113,3 +113,11 @@ body { font-family: "Noto Sans", "Helvetica Neue", Arial, sans-serif; color: var
 @media (prefers-reduced-motion: reduce) { .footer .icon-link, .footer .content a, .bibtex .copy-code-btn { transition: none; } }
 /* Light page throughout (Bulma 1.0 otherwise follows the OS dark scheme for the root). */
 html { background: var(--bg); color-scheme: light; }
+/* Inline icons (Font Awesome Free 6.5.2 paths, CC BY 4.0) replace the Font Awesome
+   stylesheet and webfonts, which the page loaded for five glyphs. */
+.fa-svg { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; overflow: visible; }
+/* Intrinsic width/height on media reserve their space; CSS still sets the size. */
+img[width][height], video[width][height] { height: auto; }
+.method-figure picture { display: block; }
+/* Pipeline arrows centred in the 10px gap between tiles (the glyph box, not its edge). */
+.pipeline-row figure:not(:last-child)::after { right: auto; left: calc(100% + 5px); transform: translate(-50%, -50%); line-height: 1; }
