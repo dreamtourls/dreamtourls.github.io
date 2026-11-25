@@ -121,3 +121,5 @@ img[width][height], video[width][height] { height: auto; }
 .method-figure picture { display: block; }
 /* Pipeline arrows centred in the 10px gap between tiles (the glyph box, not its edge). */
 .pipeline-row figure:not(:last-child)::after { right: auto; left: calc(100% + 5px); transform: translate(-50%, -50%); line-height: 1; }
+/* Wrapped captions split evenly instead of leaving a lone word on the last line. */
+.pipeline-row figcaption, .bench-label { text-wrap: balance; }
