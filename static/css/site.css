@@ -87,3 +87,29 @@ body { font-family: "Noto Sans", "Helvetica Neue", Arial, sans-serif; color: var
 .strength-slider .ss-end{color:#999;font-size:0.8rem}
 .strength-slider .ss-val{font-weight:700;color:#3273dc;min-width:2.2em;text-align:left}
 .ss-pending{display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:rgba(10,14,20,0.55);color:#fff;font-size:0.85rem;letter-spacing:0.03em;z-index:2}
+
+/* BibTeX: copyable block with black text (GOFish citation box). */
+.bibtex .bibtex-container { position: relative; background: var(--soft); border-radius: 8px; padding: .5rem; text-align: left; }
+.bibtex .bibtex-container pre { margin: 0; padding: 1.25em 1.5em; background: transparent; border: 0; color: #000; font-size: .875em; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.bibtex .bibtex-container code { background: transparent; color: inherit; padding: 0; font-size: 1em; }
+.bibtex .copy-code-btn { position: absolute; top: .5rem; right: .5rem; z-index: 2; display: flex; align-items: center; justify-content: center; padding: .5rem; background: #fff; border: 1px solid #858585; border-radius: 4px; color: #595959; font-size: 1rem; line-height: 1; cursor: pointer; transition: border-color .2s ease, color .2s ease; }
+.bibtex .copy-code-btn:hover { border-color: #6b6b6b; color: #363636; }
+.bibtex .copy-code-btn.copied { color: #257953; border-color: #257953; }
+.bibtex .copy-code-btn:focus-visible { outline: 2px solid #0476d0; outline-offset: 2px; }
+.bibtex .copy-code-btn:active { transform: translateY(1px); }
+
+/* Footer (GOFish / RecallWorld): icon row, unlabelled acknowledgements, colophon.
+   Every footer link is black with the sliding underline. */
+.footer { background: var(--soft); color: #000; padding: 3rem 1.5rem; font-size: 1rem; }
+.footer p, .footer .content p { color: #000; }
+.footer .footer-icons { display: flex; justify-content: center; gap: .25rem; margin-bottom: 1rem; }
+.footer .icon-link { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; font-size: 25px; color: #000; background: none; transition: transform .2s ease, filter .2s ease; }
+.footer .icon-link:hover, .footer .icon-link:focus-visible { color: #000; transform: translateY(-3px); filter: drop-shadow(0 3px 6px #0006); }
+.footer-acknowledgments p { text-align: justify; }
+.footer .colophon p { margin: 0 0 .5rem; line-height: 1.6; }
+.footer .template-credit { margin: 0; font-size: .8rem; }
+.footer .content a:not(.icon-link) { color: #000; text-decoration: none; background-image: linear-gradient(currentColor, currentColor); background-position: 0 100%; background-repeat: no-repeat; background-size: 0% 1.5px; transition: background-size .3s ease; }
+.footer .content a:not(.icon-link):hover, .footer .content a:not(.icon-link):focus-visible { color: #000; background-size: 100% 1.5px; }
+@media (prefers-reduced-motion: reduce) { .footer .icon-link, .footer .content a, .bibtex .copy-code-btn { transition: none; } }
+/* Light page throughout (Bulma 1.0 otherwise follows the OS dark scheme for the root). */
+html { background: var(--bg); color-scheme: light; }

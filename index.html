@@ -5,6 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DreamTour: Layout Steering for Training-Free World Exploration</title>
   <meta name="description" content="Layout Steering makes a frozen video diffusion model, or a trained world model, follow a camera trajectory from a single input image, with no training.">
+  <link rel="canonical" href="https://dreamtourls.github.io/">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Srikumar Sastry, Meher Gitika Karumuri, Chenqi Li, Sarosij Bose, Mellon Zhang, Allen Tu, Ziyang Long, Yen-Liang Lin, Alexander Schwing, Nathan Jacobs">
+  <meta name="keywords" content="DreamTour, layout steering, camera control, training-free, video diffusion, world model, world exploration, Wan 2.2, SANA-WM, Lyra 2.0, single image">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DreamTour">
+  <meta property="og:url" content="https://dreamtourls.github.io/">
+  <meta property="og:title" content="DreamTour: Layout Steering for Training-Free World Exploration">
+  <meta property="og:description" content="Layout Steering makes a frozen video diffusion model, or a trained world model, follow a camera trajectory from a single input image, with no training.">
+  <meta property="og:image" content="https://dreamtourls.github.io/static/images/og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DreamTour: layout steering on a frozen video prior">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DreamTour: Layout Steering for Training-Free World Exploration">
+  <meta name="twitter:description" content="Layout Steering makes a frozen video diffusion model, or a trained world model, follow a camera trajectory from a single input image, with no training.">
+  <meta name="twitter:image" content="https://dreamtourls.github.io/static/images/og-card.jpg">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"DreamTour: Layout Steering for Training-Free World Exploration","name":"DreamTour","url":"https://dreamtourls.github.io/","description":"Layout Steering makes a frozen video diffusion model, or a trained world model, follow a camera trajectory from a single input image, with no training.","image":"https://dreamtourls.github.io/static/images/og-card.jpg","datePublished":"2026","author":[{"@type":"Person","name":"Srikumar Sastry"},{"@type":"Person","name":"Meher Gitika Karumuri"},{"@type":"Person","name":"Chenqi Li"},{"@type":"Person","name":"Sarosij Bose"},{"@type":"Person","name":"Mellon Zhang"},{"@type":"Person","name":"Allen Tu"},{"@type":"Person","name":"Ziyang Long"},{"@type":"Person","name":"Yen-Liang Lin"},{"@type":"Person","name":"Alexander Schwing"},{"@type":"Person","name":"Nathan Jacobs"}],"publisher":{"@type":"Organization","name":"Amazon"},"codeRepository":"https://github.com/Vishu26/DreamTour"}
+  </script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
@@ -14,13 +37,14 @@
   <link rel="apple-touch-icon" href="./static/apple-touch-icon.png">
   <link rel="stylesheet" href="./static/css/site.css">
   <script defer src="./static/js/compare.js"></script>
+  <script defer src="./static/js/bibtex.js"></script>
 </head>
 <body>
 
 <section class="hero is-light">
   <div class="hero-body">
     <div class="container is-max-desktop has-text-centered">
-      <h1 class="title is-1 publication-title"><img src="static/logo.png" alt="DreamTour" style="max-width:540px;width:85%;display:block;margin:0 auto 0.4rem;"><span class="sub">Layout Steering for Training-Free World Exploration</span></h1>
+      <h1 class="title is-1 publication-title"><img src="static/logo.png" alt="DreamTour" width="1086" height="250" decoding="async" fetchpriority="high" style="max-width:540px;width:85%;display:block;margin:0 auto 0.4rem;"><span class="sub">Layout Steering for Training-Free World Exploration</span></h1>
       <div class="publication-authors">
         <span class="author-block"><a href="https://vishu26.github.io/" target="_blank" rel="noopener">Srikumar Sastry</a><sup>1,2</sup>,</span>
         <span class="author-block"><a href="https://scholar.google.com/citations?user=R14csHAAAAAJ" target="_blank" rel="noopener">Meher Gitika Karumuri</a><sup>1</sup>,</span>
@@ -60,8 +84,8 @@
     <div class="pipeline-card">
       <div class="pipeline-title"><span class="pipeline-pill">zoom out</span></div>
       <div class="pipeline-row">
-        <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p57_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
-        <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p57_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
+        <figure><span class="pipeline-step">1</span><img alt="Input image" src="./static/images/pipeline/p57_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
+        <figure><span class="pipeline-step">2</span><img alt="Canvas expanded beyond the input view (FLUX.1 Fill outpaint)" src="./static/images/pipeline/p57_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
         <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p57_zoom_out_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
         <figure><span class="pipeline-step">4</span><div class="strength-stack">
           <video class="sw" data-w="20" src="./static/videos/pipeline/p57_zoom_out_k10.mp4" muted loop playsinline preload="auto"></video>
@@ -78,8 +102,8 @@
     <div class="pipeline-card">
       <div class="pipeline-title"><span class="pipeline-pill">tilt up</span></div>
       <div class="pipeline-row">
-        <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p56_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
-        <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p56_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
+        <figure><span class="pipeline-step">1</span><img alt="Input image" src="./static/images/pipeline/p56_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
+        <figure><span class="pipeline-step">2</span><img alt="Canvas expanded beyond the input view (FLUX.1 Fill outpaint)" src="./static/images/pipeline/p56_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
         <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p56_tilt_up_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
         <figure><span class="pipeline-step">4</span><div class="strength-stack">
           <video class="sw" data-w="20" src="./static/videos/pipeline/p56_tilt_up_k10.mp4" muted loop playsinline preload="auto"></video>
@@ -278,21 +302,21 @@
     <p class="section-note">No weight is changed. Bird&#39;s-eye, orbit and pan from one input image per scene.</p>
     <table style="width:100%;border-collapse:collapse">
       <tr><th style="width:12%"></th><th class="bench-label" style="text-align:center">Bird's-eye, rise 2&nbsp;m</th><th class="bench-label" style="text-align:center">Orbit left 12&deg;</th><th class="bench-label" style="text-align:center">Pan right 20&deg;</th></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img src="./static/images/onehook/f19_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img src="./static/images/onehook/f19_sana_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_sana_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_sana_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img src="./static/images/onehook/f19_cog_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_cog_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f19_cog_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: bird's-eye view" src="./static/images/onehook/f19_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: orbit left" src="./static/images/onehook/f19_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: pan right" src="./static/images/onehook/f19_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: bird's-eye view" src="./static/images/onehook/f19_sana_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: orbit left" src="./static/images/onehook/f19_sana_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: pan right" src="./static/images/onehook/f19_sana_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: bird's-eye view" src="./static/images/onehook/f19_cog_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: orbit left" src="./static/images/onehook/f19_cog_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: pan right" src="./static/images/onehook/f19_cog_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
     </table>
     <table style="width:100%;border-collapse:collapse">
       <tr><th style="width:12%"></th><th class="bench-label" style="text-align:center">Bird's-eye, rise 2&nbsp;m</th><th class="bench-label" style="text-align:center">Orbit left 12&deg;</th><th class="bench-label" style="text-align:center">Pan right 20&deg;</th></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img src="./static/images/onehook/f00_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img src="./static/images/onehook/f00_sana_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_sana_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_sana_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img src="./static/images/onehook/f00_cog_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_cog_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f00_cog_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: bird's-eye view" src="./static/images/onehook/f00_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: orbit left" src="./static/images/onehook/f00_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: pan right" src="./static/images/onehook/f00_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: bird's-eye view" src="./static/images/onehook/f00_sana_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: orbit left" src="./static/images/onehook/f00_sana_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: pan right" src="./static/images/onehook/f00_sana_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: bird's-eye view" src="./static/images/onehook/f00_cog_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: orbit left" src="./static/images/onehook/f00_cog_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: pan right" src="./static/images/onehook/f00_cog_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
     </table>
     <table style="width:100%;border-collapse:collapse">
       <tr><th style="width:12%"></th><th class="bench-label" style="text-align:center">Bird's-eye, rise 2&nbsp;m</th><th class="bench-label" style="text-align:center">Orbit left 12&deg;</th><th class="bench-label" style="text-align:center">Pan right 20&deg;</th></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img src="./static/images/onehook/f15_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img src="./static/images/onehook/f15_sana_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_sana_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_sana_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
-      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img src="./static/images/onehook/f15_cog_bev.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_cog_orbit_left.gif" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img src="./static/images/onehook/f15_cog_pan_right.gif" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>Wan 2.2</b></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: bird's-eye view" src="./static/images/onehook/f15_wan_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: orbit left" src="./static/images/onehook/f15_wan_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="Wan 2.2 with layout steering: pan right" src="./static/images/onehook/f15_wan_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>SANA-Video 2.0</b></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: bird's-eye view" src="./static/images/onehook/f15_sana_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: orbit left" src="./static/images/onehook/f15_sana_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="SANA-Video 2.0 with layout steering: pan right" src="./static/images/onehook/f15_sana_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
+      <tr><td class="bench-label" style="text-align:right;padding-right:8px"><b>CogVideoX 1.5</b></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: bird's-eye view" src="./static/images/onehook/f15_cog_bev.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: orbit left" src="./static/images/onehook/f15_cog_orbit_left.webp" style="width:100%;border-radius:6px" loading="lazy"></td><td style="padding:3px"><img alt="CogVideoX 1.5 with layout steering: pan right" src="./static/images/onehook/f15_cog_pan_right.webp" style="width:100%;border-radius:6px" loading="lazy"></td></tr>
     </table>
   </div>
 </section>
@@ -345,7 +369,7 @@ document.querySelectorAll('.strength-slider input').forEach(function (r) {
 
 <section class="section section-tinted" id="results">
   <div class="container teaser-wide-container has-text-centered">
-    <h2 class="title is-3">Results at a glance</h2>
+    <h2 class="title is-3">Results</h2>
     <p class="section-lead">The paper&#39;s quantitative tables: camera control under the CamProbe protocol, WorldScore, and the human study.</p>
     <p class="section-note">Eight camera motions on the 93 VBench prompts, poses from Depth Anything 3, no trajectory alignment or scale fitting. Shaded rows apply layout steering to the frozen base model; the training column marks camera-control training beyond the base prior.</p>
     <div class="results-tabs">
@@ -372,28 +396,30 @@ document.querySelectorAll('.results-tab').forEach(function (b) {
 <section class="section bibtex" id="bibtex">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">BibTeX</h2>
-<pre>@misc{dreamtour2026,
+    <div class="bibtex-container"><button class="copy-code-btn" id="copy-btn" type="button" aria-label="Copy BibTeX to clipboard"><i class="fa-regular fa-copy" aria-hidden="true"></i></button><pre><code id="bibtex-content">@misc{dreamtour2026,
   title  = {DreamTour: Layout Steering for Training-Free World Exploration},
   author = {Sastry, Srikumar and Karumuri, Meher Gitika and Li, Chenqi and Bose, Sarosij and Zhang, Mellon and Tu, Allen and Long, Ziyang and Lin, Yen-Liang and Schwing, Alexander and Jacobs, Nathan},
   year   = {2026}
-}</pre>
+}</code></pre></div>
   </div>
 </section>
-
-<section class="section section-tinted" id="acknowledgements">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Acknowledgements</h2>
-    <div class="content has-text-justified">
-      <p>This work was completed during an internship at Amazon. We thank Amin Kheradmand, Avinash Ravichandran, David Stafford, Pranav Sankar and Shifan Zhu for helpful discussions and feedback.</p>
-      <p>Page layout after the <a href="https://3dgofish.github.io/" target="_blank" rel="noopener">GOFish</a> and <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a> project pages. Comparison sliders: drag or use the arrow keys; Space pauses.</p>
-    </div>
-  </div>
-</section>
-
 
 <footer class="footer">
-  <div class="content has-text-centered">
-    <p>&copy; 2026 <a href="https://www.amazon.science/" target="_blank" rel="noopener">Amazon</a></p>
+  <div class="container">
+    <div class="content has-text-centered footer-icons">
+      <a class="icon-link" href="https://github.com/Vishu26/DreamTour" target="_blank" rel="noopener noreferrer" aria-label="DreamTour code on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content footer-acknowledgments">
+          <p>This work was completed during an internship at <a href="https://www.amazon.science/" target="_blank" rel="noopener noreferrer">Amazon</a>. We thank <a href="https://scholar.google.com/citations?user=5DJL154AAAAJ" target="_blank" rel="noopener noreferrer">Amin Kheradmand</a>, <a href="https://scholar.google.com/citations?user=28p_eLYAAAAJ" target="_blank" rel="noopener noreferrer">Avinash Ravichandran</a>, <a href="https://www.linkedin.com/in/davidwstafford" target="_blank" rel="noopener noreferrer">David Stafford</a>, <a href="https://www.linkedin.com/in/pranavsankar2" target="_blank" rel="noopener noreferrer">Pranav Sankar</a> and <a href="https://shifanzhu.github.io/" target="_blank" rel="noopener noreferrer">Shifan Zhu</a> for helpful discussions and feedback.</p>
+        </div>
+        <div class="content has-text-centered colophon">
+          <p>&copy; 2026 <a href="https://www.amazon.science/" target="_blank" rel="noopener noreferrer">Amazon</a></p>
+          <p class="template-credit">This website is adapted from <a href="https://3dgofish.github.io/" target="_blank" rel="noopener noreferrer">GOFish</a> and <a href="https://nerfies.github.io/" target="_blank" rel="noopener noreferrer">Nerfies</a>. Comparison sliders: drag or use the arrow keys; Space pauses.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>
 
