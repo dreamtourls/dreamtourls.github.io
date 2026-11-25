@@ -64,15 +64,14 @@
         <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p57_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
         <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p57_zoom_out_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
         <figure><span class="pipeline-step">4</span><div class="strength-stack">
-          <video class="sw" data-w="20" src="./static/videos/pipeline/p57_zoom_out_k10.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw active" data-w="40" src="./static/videos/pipeline/p57_zoom_out_out.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw" data-w="60" src="./static/videos/pipeline/p57_zoom_out_k30.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw" data-w="80" src="./static/videos/pipeline/p57_zoom_out_k40.mp4" muted loop playsinline preload="auto"></video>
-        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), steered for the first <span class="wv">40%</span> of steps</figcaption></figure>
+          <video class="sw" data-w="0.5" src="./static/videos/pipeline/p57_zoom_out_w05.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1" src="./static/videos/pipeline/p57_zoom_out_w10.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw active" data-w="1.5" src="./static/videos/pipeline/p57_zoom_out_out.mp4" muted loop playsinline preload="auto"></video>
+        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), weight <span class="wv">1.5</span></figcaption></figure>
       </div>
       <div class="strength-slider">
-        <span><b>Choose the steering duration to control the camera travel</b></span>
-        <span class="ss-end">20%</span><input type="range" min="20" max="80" step="20" value="40" aria-label="Steering strength"><span class="ss-end">80%</span><span class="ss-val">40%</span>
+        <span><b>Choose the steering strength to control the camera travel</b></span>
+        <span class="ss-end">0.5</span><input type="range" min="0.5" max="1.5" step="0.5" value="1.5" aria-label="Steering strength"><span class="ss-end">1.5</span><span class="ss-val">1.5</span>
       </div>
     </div>
     <div class="pipeline-card">
@@ -82,33 +81,31 @@
         <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p56_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
         <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p56_tilt_up_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
         <figure><span class="pipeline-step">4</span><div class="strength-stack">
-          <video class="sw" data-w="20" src="./static/videos/pipeline/p56_tilt_up_k10.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw active" data-w="40" src="./static/videos/pipeline/p56_tilt_up_out.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw" data-w="60" src="./static/videos/pipeline/p56_tilt_up_k30.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw" data-w="80" src="./static/videos/pipeline/p56_tilt_up_k40.mp4" muted loop playsinline preload="auto"></video>
-        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), steered for the first <span class="wv">40%</span> of steps</figcaption></figure>
+          <video class="sw" data-w="0.5" src="./static/videos/pipeline/p56_tilt_up_w05.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1" src="./static/videos/pipeline/p56_tilt_up_w10.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw active" data-w="1.5" src="./static/videos/pipeline/p56_tilt_up_out.mp4" muted loop playsinline preload="auto"></video>
+        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), weight <span class="wv">1.5</span></figcaption></figure>
       </div>
       <div class="strength-slider">
-        <span><b>Choose the steering duration to control the camera travel</b></span>
-        <span class="ss-end">20%</span><input type="range" min="20" max="80" step="20" value="40" aria-label="Steering strength"><span class="ss-end">80%</span><span class="ss-val">40%</span>
+        <span><b>Choose the steering strength to control the camera travel</b></span>
+        <span class="ss-end">0.5</span><input type="range" min="0.5" max="1.5" step="0.5" value="1.5" aria-label="Steering strength"><span class="ss-end">1.5</span><span class="ss-val">1.5</span>
       </div>
     </div>
     <div class="pipeline-card">
       <div class="pipeline-title"><span class="pipeline-pill">truck right</span></div>
       <div class="pipeline-row">
-        <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p46_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
-        <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p46_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
-        <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p46_truck_right_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
+        <figure><span class="pipeline-step">1</span><img src="./static/images/pipeline/p88_photo.jpg" loading="lazy"><figcaption class="bench-label">Input image</figcaption></figure>
+        <figure><span class="pipeline-step">2</span><img src="./static/images/pipeline/p88_canvas.jpg" loading="lazy"><figcaption class="bench-label">Canvas (FLUX.1 Fill outpaint)</figcaption></figure>
+        <figure><span class="pipeline-step">3</span><video src="./static/videos/pipeline/p88_truck_right_guide.mp4" muted loop playsinline preload="metadata"></video><figcaption class="bench-label">Rendered guide along the path</figcaption></figure>
         <figure><span class="pipeline-step">4</span><div class="strength-stack">
-          <video class="sw" data-w="20" src="./static/videos/pipeline/p46_truck_right_k10.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw active" data-w="40" src="./static/videos/pipeline/p46_truck_right_out.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw" data-w="60" src="./static/videos/pipeline/p46_truck_right_k30.mp4" muted loop playsinline preload="auto"></video>
-          <video class="sw" data-w="80" src="./static/videos/pipeline/p46_truck_right_k40.mp4" muted loop playsinline preload="auto"></video>
-        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), steered for the first <span class="wv">40%</span> of steps</figcaption></figure>
+          <video class="sw" data-w="0.5" src="./static/videos/pipeline/p88_truck_right_w05.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw" data-w="1" src="./static/videos/pipeline/p88_truck_right_w10.mp4" muted loop playsinline preload="auto"></video>
+          <video class="sw active" data-w="1.5" src="./static/videos/pipeline/p88_truck_right_out.mp4" muted loop playsinline preload="auto"></video>
+        <div class="ss-pending">rendering&hellip;</div></div><figcaption class="bench-label ours-label">Steered output (Wan 2.2), weight <span class="wv">1.5</span></figcaption></figure>
       </div>
       <div class="strength-slider">
-        <span><b>Choose the steering duration to control the camera travel</b></span>
-        <span class="ss-end">20%</span><input type="range" min="20" max="80" step="20" value="40" aria-label="Steering strength"><span class="ss-end">80%</span><span class="ss-val">40%</span>
+        <span><b>Choose the steering strength to control the camera travel</b></span>
+        <span class="ss-end">0.5</span><input type="range" min="0.5" max="1.5" step="0.5" value="1.5" aria-label="Steering strength"><span class="ss-end">1.5</span><span class="ss-val">1.5</span>
       </div>
     </div>
   </div>
@@ -269,21 +266,21 @@
     <div class="bench-grid">
       <div><p class="compare-caption"><b>Forward</b></p><figure><video src="./static/videos/bench/text_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
       <div><p class="compare-caption"><b>Tilt up</b></p><figure><video src="./static/videos/bench/text_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
-      <div><p class="compare-caption"><b>Truck right</b></p><figure><video src="./static/videos/bench/text_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Truck right</b></p><figure><video src="./static/videos/bench/text_p88_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p88_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
       <div><p class="compare-caption"><b>Zoom out</b></p><figure><video src="./static/videos/bench/text_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Camera text</p><figure><video class="ours-video" src="./static/videos/bench/p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
     </div>
     <h3 class="title is-4" style="margin-top:1.6rem">SANA-WM</h3>
     <div class="bench-grid">
       <div><p class="compare-caption"><b>Forward</b></p><figure><video src="./static/videos/bench/sanawmtraj_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
       <div><p class="compare-caption"><b>Tilt up</b></p><figure><video src="./static/videos/bench/sanawmtraj_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
-      <div><p class="compare-caption"><b>Truck right</b></p><figure><video src="./static/videos/bench/sanawmtraj_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Truck right</b></p><figure><video src="./static/videos/bench/sanawmtraj_p88_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p88_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
       <div><p class="compare-caption"><b>Zoom out</b></p><figure><video src="./static/videos/bench/sanawmtraj_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/sanawm_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
     </div>
     <h3 class="title is-4" style="margin-top:1.6rem">Lyra 2.0</h3>
     <div class="bench-grid">
       <div><p class="compare-caption"><b>Forward</b></p><figure><video src="./static/videos/bench/lyratraj_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p39_zoom_in.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
       <div><p class="compare-caption"><b>Tilt up</b></p><figure><video src="./static/videos/bench/lyratraj_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p05_tilt_up.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
-      <div><p class="compare-caption"><b>Truck right</b></p><figure><video src="./static/videos/bench/lyratraj_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p46_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
+      <div><p class="compare-caption"><b>Truck right</b></p><figure><video src="./static/videos/bench/lyratraj_p88_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p88_truck_right.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
       <div><p class="compare-caption"><b>Zoom out</b></p><figure><video src="./static/videos/bench/lyratraj_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label">Trajectory input</p><figure><video class="ours-video" src="./static/videos/bench/lyra_p01_zoom_out.mp4" muted loop playsinline preload="metadata"></video></figure><p class="bench-label ours-label">+ Layout steering (ours)</p></div>
     </div>
   </div>
@@ -340,8 +337,8 @@ document.querySelectorAll('.strength-slider input').forEach(function (r) {
   var val = card.querySelector('.ss-val'), cap = card.querySelector('.wv');
   st.querySelectorAll('video').forEach(function (v) { v.addEventListener('error', function () { v.dataset.missing = '1'; }); });
   r.addEventListener('input', function () {
-    var w = String(parseInt(r.value, 10));
-    val.textContent = w + '%'; if (cap) cap.textContent = w + '%';
+    var w = String(parseFloat(r.value));
+    val.textContent = w; if (cap) cap.textContent = w;
     var cur = st.querySelector('video.active'), nxt = st.querySelector('video[data-w="' + w + '"]');
     var pend = st.querySelector('.ss-pending');
     if (pend) pend.style.display = (nxt && nxt.dataset.missing) ? 'flex' : 'none';
