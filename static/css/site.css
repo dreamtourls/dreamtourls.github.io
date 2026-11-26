@@ -128,3 +128,5 @@ img[width][height], video[width][height] { height: auto; }
 .strength-stack video { height: 100%; }
 /* Link buttons at Bulma's normal height (40px), as on GOFish and RecallWorld. */
 .publication-links .button { height: 2.5em; padding: calc(.5em - 1px) 1.25em; }
+/* Inline arXiv mark (Academicons, SIL OFL 1.1). */
+.ai-svg { width: .875em; }
